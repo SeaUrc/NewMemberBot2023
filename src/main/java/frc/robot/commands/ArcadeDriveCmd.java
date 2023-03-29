@@ -8,11 +8,12 @@ import frc.robot.subsystems.Drivetrain;
 public class ArcadeDriveCmd extends CommandBase {
     
     private final Drivetrain drivetrain;
-    private final Supplier<Double> speedFunc, turnFunc;
+    private final Supplier<Double> leftTrigFunc, rightTrigFunc, turnFunc;
 
-    public ArcadeDriveCmd(Drivetrain drivetrain, Supplier<Double> speedFunc,  Supplier<Double> turnFunc) {
+    public ArcadeDriveCmd(Drivetrain drivetrain, Supplier<Double> leftTrigFunc, Supplier<Double> rightTrigFunc,  Supplier<Double> turnFunc) {
         this.drivetrain = drivetrain;
-        this.speedFunc = speedFunc;
+        this.leftTrigFunc = leftTrigFunc;
+        this.rightTrigFunc = rightTrigFunc;
         this.turnFunc = turnFunc;
         addRequirements(drivetrain);
     }
@@ -23,11 +24,13 @@ public class ArcadeDriveCmd extends CommandBase {
 
     @Override
     public void execute() {
-        Double realTimeSpeed = speedFunc.get();
-        Double realTimeTurn = turnFunc.get();
+        double realTimeLeftTrig = leftTrigFunc.get();
+        double realTimeRightTrig = rightTrigFunc.get();
+        double realTimeTurn = turnFunc.get();
 
-        Double leftSpeed = realTimeSpeed + realTimeTurn;
-        Double rightSpeed = realTimeSpeed - realTimeTurn;
+        double realTimeSpeed = realTimeRightTrig - realTimeLeftTrig;
+        double leftSpeed = realTimeSpeed + realTimeTurn;
+        double rightSpeed = realTimeSpeed - realTimeTurn;
         drivetrain.setMotors(leftSpeed, rightSpeed);
     }
 

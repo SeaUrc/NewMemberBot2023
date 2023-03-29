@@ -29,7 +29,7 @@ public class Drivetrain extends SubsystemBase {
         rightMotorSlave.setInverted(InvertType.FollowMaster);
     }
 
-    public void setMotors(float leftSpeed, float rightSpeed) {
+    public void setMotors(double leftSpeed, double rightSpeed) {
         leftMotorMaster.set(leftSpeed);
         rightMotorMaster.set(rightSpeed);
     }
