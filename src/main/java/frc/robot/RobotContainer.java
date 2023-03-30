@@ -16,9 +16,9 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new ArcadeDriveCmd(
         drivetrain,
-        () -> joystick.getRawAxis(2), // left trigger
-        () -> joystick.getRawAxis(3), // right trigger
-        () -> joystick.getRawAxis(0))); // turn axis
+        () -> joystick.getRawAxis(Constants.leftTrigAxis), // left trigger
+        () -> joystick.getRawAxis(Constants.rightTrigAxis), // right trigger
+        () -> joystick.getRawAxis(Constants.turnJoyAxis))); // turn axis
 
     configureBindings();
     }
