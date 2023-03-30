@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import java.util.function.Supplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
@@ -32,6 +33,12 @@ public class ArcadeDriveCmd extends CommandBase {
         double leftSpeed = realTimeSpeed + realTimeTurn;
         double rightSpeed = realTimeSpeed - realTimeTurn;
         drivetrain.setMotors(leftSpeed, rightSpeed);
+        
+        SmartDashboard.putNumber("Left Trigger", realTimeLeftTrig);
+        SmartDashboard.putNumber("Right Trigger", realTimeRightTrig);
+        SmartDashboard.putNumber("Turn", realTimeTurn);
+        SmartDashboard.putNumber("Left Speed", leftSpeed);
+        SmartDashboard.putNumber("Right Speed", rightSpeed);
     }
 
     @Override
