@@ -1,20 +1,17 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
 
     // creates motor objects
-    private final WPI_TalonSRX leftMotorMaster = new WPI_TalonSRX(Constants.leftMotor1Port);
-    private final WPI_VictorSPX leftMotorSlave = new WPI_VictorSPX(Constants.leftMotor2Port);
-    private final WPI_TalonSRX rightMotorMaster = new WPI_TalonSRX(Constants.rightMotor1Port);
-    private final WPI_VictorSPX rightMotorSlave = new WPI_VictorSPX(Constants.rightMotor2Port);
+    private final CANSparkMax leftMotorMaster = new CANSparkMax(Constants.leftMotor1Port, MotorType.kBrushless);
+    private final CANSparkMax leftMotorSlave = new CANSparkMax(Constants.leftMotor2Port, MotorType.kBrushless);
+    private final CANSparkMax rightMotorMaster = new CANSparkMax(Constants.rightMotor1Port, MotorType.kBrushless);
+    private final CANSparkMax rightMotorSlave = new CANSparkMax(Constants.rightMotor2Port, MotorType.kBrushless);
 
     public Drivetrain() {
         // invert left and right motors
@@ -25,8 +22,8 @@ public class Drivetrain extends SubsystemBase {
         leftMotorSlave.follow(leftMotorMaster);
         rightMotorSlave.follow(rightMotorMaster);
 
-        leftMotorSlave.setInverted(InvertType.FollowMaster);
-        rightMotorSlave.setInverted(InvertType.FollowMaster);
+        leftMotorSlave.setInverted(leftMotorMaster.getInverted());
+        rightMotorSlave.setInverted(rightMotorMaster.getInverted());
     }
 
     public void setMotors(double leftSpeed, double rightSpeed) {
