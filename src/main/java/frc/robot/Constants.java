@@ -16,6 +16,6 @@ public class Constants {
     // auto settings
     public static final double autoLeftSpeed = 1.0;
     public static final double autoRightSpeed = 1.0;
-    public static final double autoTime = 2.0; // seconds
+    public static final double autoDriveTime = 2.0; // seconds
 
 }
