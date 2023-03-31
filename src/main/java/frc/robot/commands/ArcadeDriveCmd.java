@@ -1,16 +1,15 @@
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
+import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class ArcadeDriveCmd extends CommandBase {
     
     private final Drivetrain drivetrain;
-    private final Supplier<Double> leftTrigFunc, rightTrigFunc, turnFunc;
+    private final DoubleSupplier leftTrigFunc, rightTrigFunc, turnFunc;
 
-    public ArcadeDriveCmd(Drivetrain drivetrain, Supplier<Double> leftTrigFunc, Supplier<Double> rightTrigFunc,  Supplier<Double> turnFunc) {
+    public ArcadeDriveCmd(Drivetrain drivetrain, DoubleSupplier leftTrigFunc, DoubleSupplier rightTrigFunc,  DoubleSupplier turnFunc) {
         this.drivetrain = drivetrain;
         this.leftTrigFunc = leftTrigFunc;
         this.rightTrigFunc = rightTrigFunc;
@@ -24,13 +23,23 @@ public class ArcadeDriveCmd extends CommandBase {
 
     @Override
     public void execute() {
-        double realTimeLeftTrig = leftTrigFunc.get();
-        double realTimeRightTrig = rightTrigFunc.get();
-        double realTimeTurn = turnFunc.get();
+        double realTimeLeftTrig = leftTrigFunc.getAsDouble();
+        double realTimeRightTrig = rightTrigFunc.getAsDouble();
+        double realTimeTurn = turnFunc.getAsDouble();
+
+        // deadzone for left joystick
+        if(Math.abs(realTimeTurn) <= .1) {
+            realTimeTurn = 0;
+        }
 
         double realTimeSpeed = realTimeRightTrig - realTimeLeftTrig;
-        double leftSpeed = realTimeSpeed + realTimeTurn;
-        double rightSpeed = realTimeSpeed - realTimeTurn;
+
+        // sets turning sensativity
+        realTimeTurn *= realTimeSpeed + 0.3;
+
+        double leftSpeed = limitValue(realTimeSpeed + realTimeTurn, -1, 1);
+        double rightSpeed = limitValue(realTimeSpeed - realTimeTurn, -1, 1);
+
         drivetrain.setMotors(leftSpeed, rightSpeed);
     }
 
@@ -41,5 +50,16 @@ public class ArcadeDriveCmd extends CommandBase {
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    // limits a value between a max and min value
+    private double limitValue(double value, double min, double max) {
+        if(value < min) {
+            return min;
+        } else if(value > max) {
+            return max;
+        } else {
+            return value;
+        }
     }
 }
