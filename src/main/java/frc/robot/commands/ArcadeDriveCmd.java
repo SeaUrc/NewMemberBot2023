@@ -9,14 +9,14 @@ import frc.robot.Constants;
 
 public class ArcadeDriveCmd extends CommandBase {
     
-    private final Drivetrain drivetrain = Drivetrain.getInstance();
+    private final Drivetrain mDrivetrain = Drivetrain.getInstance();
     private final DoubleSupplier leftTrigFunc, rightTrigFunc, turnFunc;
 
-    public ArcadeDriveCmd(Drivetrain drivetrain, DoubleSupplier leftTrigFunc, DoubleSupplier rightTrigFunc,  DoubleSupplier turnFunc) {
+    public ArcadeDriveCmd(Drivetrain mDrivetrain, DoubleSupplier leftTrigFunc, DoubleSupplier rightTrigFunc,  DoubleSupplier turnFunc) {
         this.leftTrigFunc = leftTrigFunc;
         this.rightTrigFunc = rightTrigFunc;
         this.turnFunc = turnFunc;
-        addRequirements(drivetrain);
+        addRequirements(mDrivetrain);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ArcadeDriveCmd extends CommandBase {
         double leftSpeed = realTimeSpeed + realTimeTurn;
         double rightSpeed = realTimeSpeed - realTimeTurn;
 
-        drivetrain.setMotors(leftSpeed, rightSpeed);
+        mDrivetrain.setMotors(leftSpeed, rightSpeed);
 
         SmartDashboard.putNumber("Left Trigger", realTimeLeftTrig);
         SmartDashboard.putNumber("Right Trigger", realTimeRightTrig);

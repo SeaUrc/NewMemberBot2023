@@ -15,12 +15,12 @@ public class AutoDriveCmd extends CommandBase{
     double driveTime;
     double initTime;
 
-    public AutoDriveCmd(Drivetrain drivetrain, double leftTargetSpeed, double rightTargetSpeed, double driveTime){
-        this.mDrivetrain = drivetrain;
+    public AutoDriveCmd(Drivetrain mDrivetrain, double leftTargetSpeed, double rightTargetSpeed, double driveTime){
+        this.mDrivetrain = mDrivetrain;
         this.leftTargetSpeed = leftTargetSpeed;
         this.rightTargetSpeed = rightTargetSpeed;
         this.driveTime = driveTime;
-        addRequirements(drivetrain);
+        addRequirements(mDrivetrain);
     }
 
     @Override
