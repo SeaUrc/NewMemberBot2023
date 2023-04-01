@@ -37,7 +37,7 @@ public class ArcadeDriveCmd extends CommandBase {
         double realTimeSpeed = realTimeRightTrig - realTimeLeftTrig;
 
         // sets turning sensativity
-        realTimeTurn *= Math.abs(realTimeSpeed) + Constants.turnSpeed;
+        realTimeTurn *= (Math.abs(realTimeSpeed) * Constants.speedTurningInfluence) + Constants.turnSpeed;
 
         double leftSpeed = realTimeSpeed + realTimeTurn;
         double rightSpeed = realTimeSpeed - realTimeTurn;
