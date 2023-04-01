@@ -11,7 +11,6 @@ public class ArcadeDriveCmd extends CommandBase {
     
     private final Drivetrain drivetrain = Drivetrain.getInstance();
     private final DoubleSupplier leftTrigFunc, rightTrigFunc, turnFunc;
-    private double realTimeSpeed;
 
     public ArcadeDriveCmd(Drivetrain drivetrain, DoubleSupplier leftTrigFunc, DoubleSupplier rightTrigFunc,  DoubleSupplier turnFunc) {
         this.leftTrigFunc = leftTrigFunc;
@@ -22,7 +21,6 @@ public class ArcadeDriveCmd extends CommandBase {
 
     @Override
     public void initialize() {
-        realTimeSpeed = 0;
     }
 
     @Override
@@ -36,14 +34,13 @@ public class ArcadeDriveCmd extends CommandBase {
             realTimeTurn = 0;
         }
 
-        realTimeSpeed = accellerate(realTimeRightTrig - realTimeLeftTrig, realTimeSpeed);
-        // realTimeSpeed = realTimeRightTrig - realTimeLeftTrig;
+        double realTimeSpeed = realTimeRightTrig - realTimeLeftTrig;
 
         // sets turning sensativity
         realTimeTurn *= Math.abs(realTimeSpeed) + Constants.turnSpeed;
 
-        double leftSpeed = limitValue(realTimeSpeed + realTimeTurn, -1, 1);
-        double rightSpeed = limitValue(realTimeSpeed - realTimeTurn, -1, 1);
+        double leftSpeed = realTimeSpeed + realTimeTurn;
+        double rightSpeed = realTimeSpeed - realTimeTurn;
 
         drivetrain.setMotors(leftSpeed, rightSpeed);
 
@@ -61,28 +58,5 @@ public class ArcadeDriveCmd extends CommandBase {
     @Override
     public boolean isFinished() {
         return false;
-    }
-
-    // limits a value between a max and min value
-    private double limitValue(double value, double min, double max) {
-        if(value < min) {
-            return min;
-        } else if(value > max) {
-            return max;
-        } else {
-            return value;
-        }
-    }
-
-    // accellerates speed to current speed value
-    private double accellerate(double speedTarget, double currentSpeed){
-        if(speedTarget == 0) {
-            return 0;
-        } else if(currentSpeed < speedTarget && (speedTarget - currentSpeed) >= Constants.accellerationRate) {
-            return currentSpeed + Constants.accellerationRate;
-        } else if(currentSpeed > speedTarget && (currentSpeed - speedTarget) >= Constants.accellerationRate) {
-            return currentSpeed - Constants.accellerationRate;
-        }
-        return currentSpeed;
     }
 }

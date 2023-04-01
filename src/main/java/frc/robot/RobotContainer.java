@@ -12,8 +12,6 @@ import frc.robot.subsystems.Drivetrain;
 
 public class RobotContainer {
   private final Drivetrain drivetrain = Drivetrain.getInstance();
-
-  // private final Joystick joystick = new Joystick(0);
   private final XboxController xDrive = new XboxController(0);
   private final XboxController manip = new XboxController(1);
 
