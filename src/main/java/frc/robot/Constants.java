@@ -17,8 +17,8 @@ public class Constants {
     public static final byte rightMotor2Port = 11;
 
     // auto settings
-    public static final double autoLeftSpeed = 1.0;
-    public static final double autoRightSpeed = 1.0;
+    public static final double autoLeftSpeed = 0.3;
+    public static final double autoRightSpeed = 0.3;
     public static final double autoDriveTime = 2.0; // seconds
 
     // driving settings

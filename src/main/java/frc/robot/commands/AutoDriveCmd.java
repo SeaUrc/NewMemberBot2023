@@ -8,30 +8,34 @@ public class AutoDriveCmd extends CommandBase{
 
     private Drivetrain mDrivetrain = new Drivetrain();
 
-    double targetSpeed;
-    double currentSpeed;
+    double leftTargetSpeed;
+    double rightTargetSpeed;
+    double leftCurrentSpeed;
+    double rightCurrentSpeed;
     double driveTime;
     double initTime;
 
-    public AutoDriveCmd(Drivetrain drivetrain, double targetSpeed, double driveTime){
+    public AutoDriveCmd(Drivetrain drivetrain, double leftTargetSpeed, double rightTargetSpeed, double driveTime){
         this.mDrivetrain = drivetrain;
-        this.targetSpeed = targetSpeed;
+        this.leftTargetSpeed = leftTargetSpeed;
+        this.rightTargetSpeed = rightTargetSpeed;
         this.driveTime = driveTime;
+        addRequirements(drivetrain);
     }
 
     @Override
     public void initialize() {
         initTime = Timer.getFPGATimestamp();
-        currentSpeed = 0;
+        leftCurrentSpeed = 0;
+        rightCurrentSpeed = 0;
     }
 
     @Override
     public void execute() {
         double currentTime = Timer.getFPGATimestamp();
-        if(currentTime - initTime < driveTime){
-            mDrivetrain.setMotors(currentSpeed, currentSpeed);
-        }
-        else{
+        if(currentTime - initTime < driveTime) {
+            mDrivetrain.setMotors(leftCurrentSpeed, rightCurrentSpeed);
+        } else {
             mDrivetrain.setMotors(0, 0);
         }
     }
