@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.revrobotics.CANSparkMax.IdleMode;
+
 public class Constants {
     
     // declare motor ports
@@ -18,5 +20,10 @@ public class Constants {
     public static final double autoLeftSpeed = 1.0;
     public static final double autoRightSpeed = 1.0;
     public static final double autoDriveTime = 2.0; // seconds
+
+    // driving settings
+    public static final double accellerationRate = 0.08;
+    public static final double turnSpeed = 0.3;
+    public static final IdleMode motorState = IdleMode.kBrake;
 
 }
