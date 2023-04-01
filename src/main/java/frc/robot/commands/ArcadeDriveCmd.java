@@ -1,16 +1,18 @@
 package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class ArcadeDriveCmd extends CommandBase {
     
-    private final Drivetrain drivetrain;
+    private final Drivetrain drivetrain = Drivetrain.getInstance();
     private final DoubleSupplier leftTrigFunc, rightTrigFunc, turnFunc;
+    public double realTimeSpeed;
 
     public ArcadeDriveCmd(Drivetrain drivetrain, DoubleSupplier leftTrigFunc, DoubleSupplier rightTrigFunc,  DoubleSupplier turnFunc) {
-        this.drivetrain = drivetrain;
         this.leftTrigFunc = leftTrigFunc;
         this.rightTrigFunc = rightTrigFunc;
         this.turnFunc = turnFunc;
@@ -19,6 +21,7 @@ public class ArcadeDriveCmd extends CommandBase {
 
     @Override
     public void initialize() {
+        realTimeSpeed = 0;
     }
 
     @Override
@@ -32,15 +35,21 @@ public class ArcadeDriveCmd extends CommandBase {
             realTimeTurn = 0;
         }
 
-        double realTimeSpeed = realTimeRightTrig - realTimeLeftTrig;
+        realTimeSpeed = accellerate(realTimeRightTrig - realTimeLeftTrig, realTimeSpeed, .1);
 
         // sets turning sensativity
-        realTimeTurn *= realTimeSpeed + 0.3;
+        realTimeTurn *= Math.abs(realTimeSpeed) + 0.3;
 
         double leftSpeed = limitValue(realTimeSpeed + realTimeTurn, -1, 1);
         double rightSpeed = limitValue(realTimeSpeed - realTimeTurn, -1, 1);
 
         drivetrain.setMotors(leftSpeed, rightSpeed);
+
+        SmartDashboard.putNumber("Left Trigger", realTimeLeftTrig);
+        SmartDashboard.putNumber("Right Trigger", realTimeRightTrig);
+        SmartDashboard.putNumber("Turn", realTimeTurn);
+        SmartDashboard.putNumber("Left Speed", leftSpeed);
+        SmartDashboard.putNumber("Right Speed", rightSpeed);
     }
 
     @Override
@@ -61,5 +70,15 @@ public class ArcadeDriveCmd extends CommandBase {
         } else {
             return value;
         }
+    }
+
+    // accellerates speed to current speed value
+    private double accellerate(double speedTarget, double currentSpeed, double accellerationRate){
+        if(currentSpeed < speedTarget) {
+            return currentSpeed + accellerationRate;
+        } else if(currentSpeed > speedTarget) {
+            return currentSpeed - accellerationRate;
+        }
+        return currentSpeed;
     }
 }
