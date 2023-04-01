@@ -3,21 +3,21 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArcadeDriveAnkur;
 import frc.robot.commands.ArcadeDriveCmd;
+import frc.robot.commands.AutoDriveCmd;
 import frc.robot.subsystems.Drivetrain;
 
 public class RobotContainer {
-  private final Drivetrain drivetrain = Drivetrain.getInstance();
+  private final Drivetrain mDrivetrain = Drivetrain.getInstance();
   private final XboxController xDrive = new XboxController(0);
   private final XboxController manip = new XboxController(1);
 
   public RobotContainer() {
       
-    drivetrain.setDefaultCommand(
+    mDrivetrain.setDefaultCommand(
       new ArcadeDriveAnkur(
         () -> xDrive.getLeftY(),
         () -> xDrive.getRightX()
@@ -28,11 +28,11 @@ public class RobotContainer {
   }
 
     private void configureBindings() {
-      drivetrain.removeDefaultCommand();
+      mDrivetrain.removeDefaultCommand();
 
-      drivetrain.setDefaultCommand(
+      mDrivetrain.setDefaultCommand(
         new ArcadeDriveCmd(
-          drivetrain,
+          mDrivetrain,
           () -> xDrive.getLeftTriggerAxis(), // left trigger
           () -> xDrive.getRightTriggerAxis(), // right trigger
           () -> xDrive.getLeftX())); // turn axis
@@ -43,6 +43,6 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-      return Commands.print("No autonomous command configured");
+      return new AutoDriveCmd(mDrivetrain, Constants.autoLeftSpeed, Constants.autoRightSpeed, Constants.autoDriveTime);
     }
 }
