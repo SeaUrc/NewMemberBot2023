@@ -5,5 +5,4 @@ import frc.robot.subsystems.RollyClaw;
 
 public class WristCmd extends CommandBase {
     private final RollyClaw wrist = RollyClaw.getInstance();
-    
 }
