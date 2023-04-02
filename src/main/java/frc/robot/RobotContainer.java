@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ArcadeDriveAnkur;
-import frc.robot.commands.ArcadeDriveCmd;
 import frc.robot.commands.AutoDriveCmd;
 import frc.robot.commands.RollerCmd;
 import frc.robot.commands.WristCmd;
@@ -45,8 +44,8 @@ public class RobotContainer {
       new JoystickButton(manip, XboxController.Button.kA.value).onTrue(new InstantCommand(() -> xDrive.setRumble(RumbleType.kBothRumble, 1)));
       new JoystickButton(manip, XboxController.Button.kB.value).onTrue(new InstantCommand(() -> xDrive.setRumble(RumbleType.kBothRumble, 0)));
 
-      mRollyClaw.setDefaultCommand(new WristCmd(() -> xDrive.getRightY()));
-      mRollyClaw.setDefaultCommand(new RollerCmd(() -> xDrive.getLeftY()));
+      new WristCmd(() -> xDrive.getRightY()).ignoringDisable(true).schedule();
+      new RollerCmd(() -> xDrive.getLeftY()).ignoringDisable(true).schedule();
     }
 
     public Command getAutonomousCommand() {

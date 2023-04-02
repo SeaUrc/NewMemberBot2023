@@ -10,8 +10,8 @@ public class Constants {
     public static final byte rightMotorMaster_ID = 3;
     public static final byte rightMotorSlave_ID = 4;
 
-    public static final byte wristMotor_ID = 0;
-    public static final byte rollerMotor_ID = 0;
+    public static final byte wristMotor_ID = 17;
+    public static final byte rollerMotor_ID = 10;
     
     // public static final byte leftMotor1Port = 20;
     // public static final byte leftMotor2Port = 21;
