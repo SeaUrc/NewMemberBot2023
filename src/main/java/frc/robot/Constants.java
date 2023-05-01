@@ -9,14 +9,6 @@ public class Constants {
     public static final byte leftMotorSlave_ID = 2;
     public static final byte rightMotorMaster_ID = 3;
     public static final byte rightMotorSlave_ID = 4;
-
-    public static final byte wristMotor_ID = 17;
-    public static final byte rollerMotor_ID = 10;
-    
-    // public static final byte leftMotor1Port = 20;
-    // public static final byte leftMotor2Port = 21;
-    // public static final byte rightMotor1Port = 10;
-    // public static final byte rightMotor2Port = 11;
     
     // auto settings
     public static final double autoLeftSpeed = 0.3;
@@ -28,5 +20,4 @@ public class Constants {
     public static final double turnSpeed = 0.3;
     public static final double speedTurningInfluence = 0.6;
     public static final IdleMode motorState = IdleMode.kBrake;
-    public static final double DRIVETRAIN_MOD = .8; // Ankur's cmd
 }

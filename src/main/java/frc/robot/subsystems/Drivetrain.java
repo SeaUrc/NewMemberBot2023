@@ -32,12 +32,6 @@ public class Drivetrain extends SubsystemBase {
         rightMotorMaster.setIdleMode(Constants.motorState);
         rightMotorSlave.setIdleMode(Constants.motorState);
 
-        // invert left and right motors Ankur
-        // rightMotorMaster.setInverted(false);
-        // rightMotorSlave.setInverted(false);
-        // leftMotorMaster.setInverted(true);
-        // leftMotorSlave.setInverted(true);
-
         rightMotorMaster.setInverted(true);
         rightMotorSlave.setInverted(true);
         leftMotorMaster.setInverted(false);

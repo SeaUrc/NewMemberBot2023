@@ -9,10 +9,11 @@ import frc.robot.Constants;
 
 public class ArcadeDriveCmd extends CommandBase {
     
-    private final Drivetrain mDrivetrain = Drivetrain.getInstance();
+    private final Drivetrain mDrivetrain;
     private final DoubleSupplier leftTrigFunc, rightTrigFunc, turnFunc;
 
     public ArcadeDriveCmd(Drivetrain mDrivetrain, DoubleSupplier leftTrigFunc, DoubleSupplier rightTrigFunc,  DoubleSupplier turnFunc) {
+        this.mDrivetrain = mDrivetrain;
         this.leftTrigFunc = leftTrigFunc;
         this.rightTrigFunc = rightTrigFunc;
         this.turnFunc = turnFunc;
@@ -53,6 +54,7 @@ public class ArcadeDriveCmd extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        mDrivetrain.setMotors(0, 0);
     }
 
     @Override

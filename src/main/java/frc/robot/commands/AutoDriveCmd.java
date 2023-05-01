@@ -6,7 +6,7 @@ import frc.robot.subsystems.Drivetrain;
 
 public class AutoDriveCmd extends CommandBase{
 
-    private Drivetrain mDrivetrain = new Drivetrain();
+    private Drivetrain mDrivetrain;
 
     double leftTargetSpeed;
     double rightTargetSpeed;
