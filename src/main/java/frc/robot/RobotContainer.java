@@ -15,11 +15,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new ArcadeDriveCmd(
-      mDrivetrain,
+    mDrivetrain.setDefaultCommand(new ArcadeDriveCmd(mDrivetrain,
       () -> xDrive.getLeftTriggerAxis(), // left trigger
       () -> xDrive.getRightTriggerAxis(), // right trigger
-      () -> xDrive.getLeftX()); // turn axis
+      () -> xDrive.getLeftX())); // turn axis
   }
 
   public Command getAutonomousCommand() {
