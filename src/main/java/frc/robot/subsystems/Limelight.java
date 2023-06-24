@@ -12,15 +12,15 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight extends SubsystemBase {
 
-    private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
     private NetworkTableEntry tx = table.getEntry("tx");
     private NetworkTableEntry ty = table.getEntry("tx");
     private NetworkTableEntry ta = table.getEntry("tx");
 
-    private double x;
-    private double y;
-    private double area;
+    private static double x;
+    private static double y;
+    private static double area;
 
     private Limelight() {
 
@@ -37,4 +37,18 @@ public class Limelight extends SubsystemBase {
         SmartDashboard.putNumber("LimelightArea", area);
     }
 
+
+    public static double getX() {
+        return x;
+    }
+
+    public static double getY() {
+        return y;
+    }
+
+    public static double getArea() {
+        return area;
+    }
+
 }
+
